@@ -4,11 +4,11 @@
   <xacro:property name="name_prefix" value="$(arg prefix)${model_name}" />
   <xacro:property name="tf_topic" value="${name_prefix}/tf" />
 
-  <!-- <gazebo>
-    <plugin filename="gz_ros2_control-system"
+  <gazebo>
+    <!-- <plugin filename="gz_ros2_control-system"
       name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>${model_dir}/gz_control_cfg.yml</parameters>
-    </plugin>
+    </plugin> -->
     <plugin
       filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
@@ -30,10 +30,10 @@
       <robot_base_frame>$(arg prefix)base_link</robot_base_frame>
       <tf_topic>${tf_topic}</tf_topic>
     </plugin>
-  </gazebo> -->
+  </gazebo>
 
   <!-- 增加 gazebo 的雷达功能 -->
-  <!-- <gazebo reference="$(arg prefix)lidar_link">
+  <gazebo reference="$(arg prefix)lidar_link">
     <sensor name='gpu_lidar' type='gpu_lidar'>
       <topic>${name_prefix}/lidar</topic>
       <gz_frame_id>$(arg prefix)lidar_link</gz_frame_id>
@@ -43,8 +43,8 @@
           <horizontal>
             <samples>1440</samples>
             <resolution>0.25</resolution>
-            <min_angle>-1.396263</min_angle>
-            <max_angle>1.396263</max_angle>
+            <min_angle>${pi * -1 + 0.001}</min_angle>
+            <max_angle>${pi * 1 - 0.001}</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -56,7 +56,7 @@
       <always_on>1</always_on>
       <visualize>true</visualize>
     </sensor>
-  </gazebo> -->
+  </gazebo>
 
   <!-- 麦克纳目轮驱动 -->
   <gazebo>

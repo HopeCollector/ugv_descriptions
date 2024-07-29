@@ -27,8 +27,8 @@
   <xacro:include
     filename="${urdf_dir}/wheels.xacro" />
 
-  <!-- <xacro:include
-    filename="${urdf_dir}/lidar.xacro" /> -->
+  <xacro:include
+    filename="${urdf_dir}/lidar.xacro" />
 
   <!-- <xacro:include
     filename="${urdf_dir}/camera.xacro" /> -->
