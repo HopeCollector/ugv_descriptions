@@ -96,7 +96,7 @@ def generate_launch_description():
         output="screen",
     )
 
-    controller_name = "diff_controller_x3_mecanum"
+    controller_name = "mecanum_controller_x3_mecanum"
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
