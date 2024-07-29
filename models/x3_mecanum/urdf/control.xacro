@@ -8,7 +8,7 @@
     </joint>
   </xacro:macro>
 
-  <ros2_control name="$(arg prefix)${model_name}_ros2_control" type="system">
+  <ros2_control name="$(arg prefix)${model_name}_hardware_interface" type="system">
 
     <xacro:if value="$(arg use_gazebo)">
       <hardware>
