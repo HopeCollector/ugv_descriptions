@@ -96,6 +96,17 @@ def generate_launch_description():
         output="screen",
     )
 
+    controller_name = "diff_controller_x3_mecanum"
+    robot_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            controller_name,
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
+
     node_rviz = Node(
         package="rviz2",
         executable="rviz2",
@@ -110,6 +121,7 @@ def generate_launch_description():
         node_gz_spawn_entity,
         node_gz_bridge,
         # node_rviz,
+        robot_controller_spawner,
         LogInfo(msg=[rviz_config_file]),
     ]
 

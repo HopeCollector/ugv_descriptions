@@ -5,11 +5,11 @@
   <xacro:property name="tf_topic" value="${name_prefix}/tf" />
 
   <gazebo>
-    <!-- <plugin filename="gz_ros2_control-system"
+    <plugin filename="gz_ros2_control-system"
       name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>${model_dir}/gz_control_cfg.yml</parameters>
-    </plugin> -->
-    <plugin
+    </plugin>
+    <!-- <plugin
       filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
       <topic>${name_prefix}/joint_state</topic>
@@ -17,7 +17,7 @@
       <joint_state>right_front_wheel_joint</joint_state>
       <joint_state>left_rear_wheel_joint</joint_state>
       <joint_state>right_rear_wheel_joint</joint_state>
-    </plugin>
+    </plugin> -->
     <plugin
       filename="gz-sim-sensors-system"
       name="gz::sim::systems::Sensors">
@@ -59,7 +59,7 @@
   </gazebo>
 
   <!-- 麦克纳目轮驱动 -->
-  <gazebo>
+  <!-- <gazebo>
     <plugin
       filename="gz-sim-mecanum-drive-system"
       name="gz::sim::systems::MecanumDrive">
@@ -78,7 +78,7 @@
       <frame_id>${name_prefix}_odom</frame_id>
       <child_frame_id>${name_prefix}_base_link</child_frame_id>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 
   <xacro:macro name="add_gz_property_to_wheel" params="link_name fdir1">
     <gazebo reference="${link_name}">
