@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot name="wheeltec" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="use_gazebo" default="false" />
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="laser_offset_x" value="0.036" />
+  <xacro:property name="laser_offset_y" value="0.0015048" />
+  <xacro:property name="laser_offset_z" value="0.13921" />
+  <xacro:property name="laser_min_angle" value="-180" />
+  <xacro:property name="laser_max_angle" value="180" />
+  <xacro:property name="camera_offset_x" value="0.12521" />
+  <xacro:property name="camera_offset_y" value="0.0017204" />
+  <xacro:property name="camera_offset_z" value="0.10195" />
+  <xacro:property name="front_wheel_position_x" value="0.0725" />
+  <xacro:property name="left_wheel_position_y" value="0.08939" />
+  <xacro:property name="right_wheel_position_y" value="-0.08661" />
+  <xacro:property name="wheel_position_z" value="-0.026385" />
+  <xacro:property name="rear_wheel_position_x" value="-0.1005" />
+  <xacro:property name="wheel_mass" value="0.053774" />
+  <xacro:property name="box_position_x" value="0" />
+  <xacro:property name="box_position_y" value="0" />
+  <xacro:property name="box_position_z" value="0.07" />
+  <xacro:property name="box_length" value="0.27" />
+  <xacro:property name="box_width" value="0.19" />
+  <xacro:property name="box_height" value="0.075" />
+  <xacro:property name="box_mass" value="0.6" />
+  <xacro:property name="model_name" value="mini_4wd" />
+  <xacro:property name="model_dir" value="$(find ugv_ctrl)/models/${model_name}" />
+  <xacro:property name="urdf_dir" value="${model_dir}/urdf" />
+  <xacro:property name="mesh_dir" value="package://ugv_ctrl/models/mini_4wd/meshes" />
+
+  <xacro:macro name="box_inertial_matrix" params="m w h d">
+    <inertial>
+      <origin xyz="0 0 0.07" rpy="0 0 0" />
+      <mass value="${m}" />
+      <inertia ixx="${m*(d*d+h*h)/12}" ixy="0" ixz="0"
+        iyy="${m*(w*w+h*h)/12}" iyz="0"
+        izz="${m*(w*w+d*d)/12}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:include
+    filename="${urdf_dir}/body.xacro" />
+
+  <xacro:include
+    filename="${urdf_dir}/wheels.xacro" />
+
+  <xacro:include
+    filename="${urdf_dir}/camera.xacro" />
+
+  <xacro:include
+    filename="${urdf_dir}/laser.xacro" />
+
+  <xacro:include
+    filename="${urdf_dir}/control.xacro" />
+
+  <xacro:if value="$(arg use_gazebo)">
+    <xacro:include
+      filename="${urdf_dir}/gazebo.xacro" />
+  </xacro:if>
+
+</robot>

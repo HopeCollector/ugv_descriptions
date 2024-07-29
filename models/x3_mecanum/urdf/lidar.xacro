@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="lidar_box_length" value="0.0377" />
+  <xacro:property name="lidar_box_width" value="0.0375" />
+  <xacro:property name="lidar_box_height" value="0.033" />
+
+  <link name="$(arg prefix)lidar_link">
+    <xacro:box_inertial_matrix m="0.001" l="${lidar_box_length}" w="${lidar_box_width}"
+      h="${lidar_box_height}" />
+    <visual>
+      <origin xyz="0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_dir}/lidar_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <box size="${lidar_box_length} ${lidar_box_width} ${lidar_box_height}" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="$(arg prefix)laser_joint" type="fixed">
+    <origin xyz="-0.039 0 0.005" rpy="0 0 0" />
+    <parent link="$(arg prefix)base_link" />
+    <child link="$(arg prefix)lidar_link" />
+  </joint>
+
+</robot>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <link name="$(arg prefix)camera_link">
+    <xacro:box_inertial_matrix m="0.001" w="0.001" h="0.001" d="0.001" />
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0 " />
+      <geometry>
+        <mesh filename="${mesh_dir}/camera_link.DAE" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.046 0.165 0.077" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="$(arg prefix)camera_frame_optical" />
+
+  <joint name="$(arg prefix)camera_link_joint" type="fixed">
+    <origin xyz="${camera_offset_x} ${camera_offset_y} ${camera_offset_z}" rpy="0 0 0" />
+    <parent link="$(arg prefix)base_link" />
+    <child link="$(arg prefix)camera_link" />
+  </joint>
+
+  <joint name="$(arg prefix)camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+    <parent link="$(arg prefix)camera_link" />
+    <child link="$(arg prefix)camera_frame_optical" />
+  </joint>
+</robot>

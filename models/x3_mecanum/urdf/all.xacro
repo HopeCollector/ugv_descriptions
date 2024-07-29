@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot name="x3_mecanum" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="use_gazebo" default="false" />
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="camera_offset_x" value="0.12521" />
+  <xacro:property name="camera_offset_y" value="0.0017204" />
+  <xacro:property name="camera_offset_z" value="0.10195" />
+  <xacro:property name="model_name" value="x3_mecanum" />
+  <xacro:property name="model_dir" value="$(find ugv_descriptions)/models/${model_name}" />
+  <xacro:property name="urdf_dir" value="${model_dir}/urdf" />
+  <xacro:property name="mesh_dir" value="package://ugv_descriptions/models/${model_name}/meshes" />
+
+  <xacro:macro name="box_inertial_matrix" params="m l w h">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="${m}" />
+      <inertia ixx="${m*(l*l+h*h)/12}" ixy="0" ixz="0"
+        iyy="${m*(w*w+l*l)/12}" iyz="0"
+        izz="${m*(w*w+h*h)/12}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:include
+    filename="${urdf_dir}/body.xacro" />
+
+  <xacro:include
+    filename="${urdf_dir}/wheels.xacro" />
+
+  <!-- <xacro:include
+    filename="${urdf_dir}/lidar.xacro" /> -->
+
+  <!-- <xacro:include
+    filename="${urdf_dir}/camera.xacro" /> -->
+
+  <!-- <xacro:include
+    filename="${urdf_dir}/control.xacro" /> -->
+
+  <xacro:if value="$(arg use_gazebo)">
+    <xacro:include
+      filename="${urdf_dir}/gazebo.xacro" />
+  </xacro:if>
+
+</robot>

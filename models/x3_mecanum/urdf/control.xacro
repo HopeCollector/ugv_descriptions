@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="add_ctrl_interface" params="joint_name">
+    <joint name="${joint_name}">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+  </xacro:macro>
+
+  <ros2_control name="$(arg prefix)${model_name}_ros2_control" type="system">
+
+    <xacro:if value="$(arg use_gazebo)">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+    </xacro:if>
+
+    <xacro:unless value="$(arg use_gazebo)">
+      <hardware>
+        <plugin>mock_components/GenericSystem</plugin>
+        <param name="calculate_dynamics">true</param>
+      </hardware>
+    </xacro:unless>
+
+    <xacro:add_ctrl_interface joint_name="$(arg prefix)right_front_wheel_joint" />
+    <xacro:add_ctrl_interface joint_name="$(arg prefix)left_front_wheel_joint" />
+    <xacro:add_ctrl_interface joint_name="$(arg prefix)right_rear_wheel_joint" />
+    <xacro:add_ctrl_interface joint_name="$(arg prefix)left_rear_wheel_joint" />
+
+  </ros2_control>
+</robot>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin filename="gz_ros2_control-system"
+      name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>${model_dir}/gz_control_cfg.yml</parameters>
+    </plugin>
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+    <plugin
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+  <xacro:macro name="add_gz_property_to_wheel" params="joint_name">
+    <gazebo reference="${joint_name}">
+      <maxContacts>1</maxContacts>
+      <kp>100000.000000</kp>
+      <kd>1.000000</kd>
+      <maxVel>100.000000</maxVel>
+      <minDepth>0.000000</minDepth>
+      <dampingFactor>0.01</dampingFactor>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:add_gz_property_to_wheel joint_name="$(arg prefix)right_front_wheel_joint" />
+  <xacro:add_gz_property_to_wheel joint_name="$(arg prefix)left_front_wheel_joint" />
+  <xacro:add_gz_property_to_wheel joint_name="$(arg prefix)right_rear_wheel_joint" />
+  <xacro:add_gz_property_to_wheel joint_name="$(arg prefix)left_rear_wheel_joint" />
+
+</robot>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <link name="$(arg prefix)laser_link">
+    <xacro:box_inertial_matrix m="0.001" w="0.001" h="0.001" d="0.001" />
+    <visual>
+      <origin xyz=" 0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_dir}/laser_link.DAE" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz=" 0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.074 0.078" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="$(arg prefix)laser_joint" type="fixed">
+    <origin xyz="${laser_offset_x} ${laser_offset_y} ${laser_offset_z}" rpy="0 0 0" />
+    <parent link="$(arg prefix)base_link" />
+    <child link="$(arg prefix)laser_link" />
+  </joint>
+
+
+</robot>

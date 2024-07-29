@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <link name="$(arg prefix)dummy" />
+  <joint name="$(arg prefix)base_link_join" type="fixed">
+    <parent link="$(arg prefix)dummy" />
+    <child link="$(arg prefix)base_link" />
+    <origin xyz="${box_position_x} ${box_position_y} ${box_position_z}" rpy="0 0 0" />
+  </joint>
+
+  <link name="$(arg prefix)base_link">
+    <xacro:box_inertial_matrix m="${box_mass}" d="${box_width}" h="${box_height}" w="${box_length}" />
+    <visual>
+      <geometry>
+        <mesh filename="${mesh_dir}/base_link.DAE" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${box_position_x} ${box_position_y} ${box_position_z}" rpy="0 0 0" />
+      <geometry>
+        <!-- <mesh filename="${mesh_dir}/base_link.STL" /> -->
+        <box size="${box_length} ${box_width} ${box_height}" />
+      </geometry>
+    </collision>
+  </link>
+
+</robot>
