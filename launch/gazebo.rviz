@@ -6,8 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1
-        - /PointCloud21/Status1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz_common/Selection
@@ -72,6 +70,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        dummy:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         left_front_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -113,6 +115,8 @@ Visualization Manager:
       Frames:
         All Enabled: true
         base_link:
+          Value: true
+        dummy:
           Value: true
         left_front_wheel_link:
           Value: true
@@ -225,25 +229,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 52.121803283691406
+      Distance: 9.445388793945312
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 4.419405937194824
-        Y: -8.954639434814453
-        Z: -4.2387776374816895
+        X: 0.03411860764026642
+        Y: 0.08724067360162735
+        Z: 0.017954207956790924
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8903979063034058
-      Target Frame: <Fixed Frame>
+      Pitch: 0.7097960710525513
+      Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 0.23539802432060242
+      Yaw: 3.1553971767425537
     Saved: ~
 Window Geometry:
   Displays:
