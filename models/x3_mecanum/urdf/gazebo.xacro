@@ -46,6 +46,12 @@
             <min_angle>${pi * -1 + 0.001}</min_angle>
             <max_angle>${pi * 1 - 0.001}</max_angle>
           </horizontal>
+          <vertical>
+            <samples>32</samples>
+            <resolution>0.021106</resolution>
+            <min_angle>-0.349066</min_angle>
+            <max_angle>0.349066</max_angle>
+          </vertical>
         </scan>
         <range>
           <min>0.05</min>
