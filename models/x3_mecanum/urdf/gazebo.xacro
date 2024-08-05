@@ -9,26 +9,14 @@
       name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>${model_dir}/gz_control_cfg.yml</parameters>
     </plugin>
-    <!-- <plugin
-      filename="gz-sim-joint-state-publisher-system"
-      name="gz::sim::systems::JointStatePublisher">
-      <topic>${name_prefix}/joint_state</topic>
-      <joint_state>left_front_wheel_joint</joint_state>
-      <joint_state>right_front_wheel_joint</joint_state>
-      <joint_state>left_rear_wheel_joint</joint_state>
-      <joint_state>right_rear_wheel_joint</joint_state>
-    </plugin> -->
     <plugin
       filename="gz-sim-sensors-system"
       name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
     <plugin
-      filename="gz-sim-odometry-publisher-system"
-      name="gz::sim::systems::OdometryPublisher">
-      <odom_frame>odom</odom_frame>
-      <robot_base_frame>$(arg prefix)base_link</robot_base_frame>
-      <tf_topic>${tf_topic}</tf_topic>
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
     </plugin>
   </gazebo>
 
@@ -64,27 +52,71 @@
     </sensor>
   </gazebo>
 
-  <!-- 麦克纳目轮驱动 -->
-  <!-- <gazebo>
-    <plugin
-      filename="gz-sim-mecanum-drive-system"
-      name="gz::sim::systems::MecanumDrive">
-      <front_left_joint>left_front_wheel_joint</front_left_joint>
-      <front_right_joint>right_front_wheel_joint</front_right_joint>
-      <back_left_joint>left_rear_wheel_joint</back_left_joint>
-      <back_right_joint>right_rear_wheel_joint</back_right_joint>
-      <wheel_separation>0.163</wheel_separation>
-      <wheelbase>0.16</wheelbase>
-      <wheel_radius>0.035</wheel_radius>
-      <min_acceleration>-5</min_acceleration>
-      <max_acceleration>5</max_acceleration>
-      <topic>${name_prefix}/cmd_vel</topic>
-      <odom_topic>${name_prefix}/odometry</odom_topic>
-      <tf_topic>${tf_topic}</tf_topic>
-      <frame_id>${name_prefix}_odom</frame_id>
-      <child_frame_id>${name_prefix}_base_link</child_frame_id>
-    </plugin>
-  </gazebo> -->
+  <!-- 增加 gazebo 的 IMU 功能 -->
+  <gazebo reference="$(arg prefix)imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <topic>${name_prefix}/imu</topic>
+      <gz_frame_id>$(arg prefix)imu_link</gz_frame_id>
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <imu>
+        <enable_orientation>false</enable_orientation>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+    </sensor>
+  </gazebo>
 
   <xacro:macro name="add_gz_property_to_wheel" params="link_name fdir1">
     <gazebo reference="${link_name}">

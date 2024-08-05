@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:property name="imu_box_length" value="0.02" />
+    <xacro:property name="imu_box_width" value="0.01" />
+    <xacro:property name="imu_box_height" value="0.005" />
+
+    <link name="$(arg prefix)imu_link">
+        <xacro:box_inertial_matrix m="0.001" l="${imu_box_length}" w="${imu_box_width}"
+            h="${imu_box_height}" />
+        <visual>
+            <origin xyz="0 0 0 " rpy="0 0 0" />
+            <geometry>
+                <box size="${imu_box_length} ${imu_box_width} ${imu_box_height}" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0 " rpy="0 0 0" />
+            <geometry>
+                <box size="${imu_box_length} ${imu_box_width} ${imu_box_height}" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="$(arg prefix)imu_joint" type="fixed">
+        <origin xyz="-0.039 0 0.005" rpy="0 0 0" />
+        <parent link="$(arg prefix)base_link" />
+        <child link="$(arg prefix)imu_link" />
+    </joint>
+
+</robot>
