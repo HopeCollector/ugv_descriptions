@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
+  <xacro:property name="wheel_radius" value="0.031" />
+  <xacro:property name="wheel_zoff" value="0.035" />
+
   <xacro:macro name="create_wheel_link"
     params="
         link_name
@@ -15,7 +18,7 @@
       <collision>
         <geometry>
           <!-- <sphere radius="0.035" /> -->
-           <cylinder length="0.035" radius="0.031" />
+          <cylinder length="0.035" radius="${wheel_radius}" />
         </geometry>
       </collision>
       <inertial>
@@ -69,21 +72,28 @@
   <xacro:create_wheel_joint
     joint_name="$(arg prefix)right_front_wheel_joint"
     link_name="$(arg prefix)right_front_wheel_link"
-    xyz_offset="0.083 -0.081 -0.035"
+    xyz_offset="0.083 -0.081 -${wheel_zoff}"
   />
   <xacro:create_wheel_joint
     joint_name="$(arg prefix)left_front_wheel_joint"
     link_name="$(arg prefix)left_front_wheel_link"
-    xyz_offset="0.083 0.079 -0.035"
+    xyz_offset="0.083 0.079 -${wheel_zoff}"
   />
   <xacro:create_wheel_joint
     joint_name="$(arg prefix)right_rear_wheel_joint"
     link_name="$(arg prefix)right_rear_wheel_link"
-    xyz_offset="-0.08 -0.081 -0.035"
+    xyz_offset="-0.08 -0.081 -${wheel_zoff}"
   />
   <xacro:create_wheel_joint
     joint_name="$(arg prefix)left_rear_wheel_joint"
     link_name="$(arg prefix)left_rear_wheel_link"
-    xyz_offset="-0.08 0.079 -0.035"
+    xyz_offset="-0.08 0.079 -${wheel_zoff}"
   />
+
+  <link name="base_footprint" />
+  <joint name="footprint_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="base_footprint" />
+    <origin xyz="0.0 0.0 ${-(wheel_radius+wheel_zoff)}" rpy="0 0 0" />
+  </joint>
 </robot>
