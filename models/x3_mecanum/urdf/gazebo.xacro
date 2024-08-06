@@ -30,7 +30,7 @@
         <scan>
           <horizontal>
             <samples>1440</samples>
-            <resolution>0.25</resolution>
+            <resolution>1.0</resolution>
             <min_angle>${pi * -1 + 0.001}</min_angle>
             <max_angle>${pi * 1 - 0.001}</max_angle>
           </horizontal>
