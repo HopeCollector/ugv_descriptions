@@ -107,6 +107,16 @@ def generate_launch_description():
         ],
     )
 
+    joint_state_publisher_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "joint_state_broadcaster",
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
+
     node_rviz = Node(
         package="rviz2",
         executable="rviz2",
@@ -121,6 +131,7 @@ def generate_launch_description():
         node_gz_spawn_entity,
         node_gz_bridge,
         # node_rviz,
+        joint_state_publisher_spawner,
         robot_controller_spawner,
         LogInfo(msg=[rviz_config_file]),
     ]
