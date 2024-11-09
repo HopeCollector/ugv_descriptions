@@ -7,7 +7,7 @@ from launch.substitutions import (
     PathJoinSubstitution,
 )
 from launch_ros.substitutions import FindPackageShare
-from launch_ros.actions import Node
+from launch_ros.actions import Node, SetUseSimTime
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from math import pi
 
@@ -57,7 +57,13 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
-        parameters=[{"robot_description": robot_description_content}],
+        parameters=[
+            {
+                "robot_description": robot_description_content,
+                "qos_overrides./tf_static.publisher.durability": "transient_local",
+                "use_sim_time": True,
+            }
+        ],
     )
 
     # gazebo
@@ -136,4 +142,4 @@ def generate_launch_description():
         LogInfo(msg=[rviz_config_file]),
     ]
 
-    return LaunchDescription(declared_arguments + nodes)
+    return LaunchDescription([SetUseSimTime(True)] + declared_arguments + nodes)
