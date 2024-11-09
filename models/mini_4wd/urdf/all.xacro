@@ -25,9 +25,9 @@
   <xacro:property name="box_height" value="0.075" />
   <xacro:property name="box_mass" value="0.6" />
   <xacro:property name="model_name" value="mini_4wd" />
-  <xacro:property name="model_dir" value="$(find ugv_ctrl)/models/${model_name}" />
+  <xacro:property name="model_dir" value="$(find ugv_descriptions)/models/${model_name}" />
   <xacro:property name="urdf_dir" value="${model_dir}/urdf" />
-  <xacro:property name="mesh_dir" value="package://ugv_ctrl/models/mini_4wd/meshes" />
+  <xacro:property name="mesh_dir" value="package://ugv_descriptions/models/mini_4wd/meshes" />
 
   <xacro:macro name="box_inertial_matrix" params="m w h d">
     <inertial>
